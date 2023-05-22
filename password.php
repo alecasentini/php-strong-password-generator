@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="vh-100 w-100 pt-5" style="background-color: #001632">
+    <div class="vh-100 w-100 pt-5 d-flex flex-column align-items-center" style="background-color: #001632">
 
     <?php
         session_start();
@@ -25,6 +25,7 @@
         }
     ?>
 
+    <a href='index.php' class='btn btn-primary mt-5'>Torna indietro</a>
     
     </div>
 
