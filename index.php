@@ -1,3 +1,14 @@
+<?php
+function generateRandomPassword($length) {
+    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+    $password = '';
+    for ($i = 0; $i < $length; $i++) {
+        $password .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $password;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,19 +29,19 @@
     <h1 class="text-center text-secondary pt-5">Strong Password Generator</h1>
     <h2 class="text-center text-white">Genera una password sicura</h2>
 
-    <div class="container d-flex bg-white rounded p-3 w-50">
+    <form action="index.php" method="get" class="container d-flex bg-white rounded p-3 w-50">
         <div class="d-flex flex-column w-50">
             <p>Lunghezza password:</p>
             <p>Consenti ripetizioni di uno o più caratteri</p>
             <div class="d-flex mt-5">
-                <button type="button" class="btn btn-primary">Invia</button>
-                <button type="button" class="btn btn-secondary ms-2">Annulla</button>
+                <input type="submit" class="btn btn-primary" value="Invia">
+                <input type="submit" class="btn btn-secondary ms-2" value="Annulla">
             </div>
         </div>
         
         <div class="d-flex flex-column w-50">
 
-            <input type="text" class="form-control w-50">
+            <input type="number" name="passwordLength" class="form-control w-50">
 
             <div class="form-check mt-3">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
@@ -65,8 +76,13 @@
             </div>
 
         </div>
-    </div>
-
+    </form>
+    <?php if (isset($_GET['passwordLength'])) {
+        $passwordLength = $_GET['passwordLength'];
+        $randomPassword = generateRandomPassword($passwordLength);
+        echo "<div class='container d-flex justify-content-center bg-white rounded p-3 mt-5 w-50'>La tua password casuale è: $randomPassword" . "</div";
+    }
+    ?>
 </div>
 
 
