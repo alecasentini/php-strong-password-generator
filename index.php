@@ -1,12 +1,5 @@
 <?php
-function generateRandomPassword($length) {
-    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
-    $password = '';
-    for ($i = 0; $i < $length; $i++) {
-        $password .= $characters[rand(0, strlen($characters) - 1)];
-    }
-    return $password;
-}
+include 'functions.php';
 ?>
 
 <!DOCTYPE html>
@@ -77,12 +70,11 @@ function generateRandomPassword($length) {
 
         </div>
     </form>
-    <?php if (isset($_GET['passwordLength'])) {
-        $passwordLength = $_GET['passwordLength'];
-        $randomPassword = generateRandomPassword($passwordLength);
-        echo "<div class='container d-flex justify-content-center bg-white rounded p-3 mt-5 w-50'>La tua password casuale è: $randomPassword" . "</div";
-    }
+
+    <?php 
+        echo "<div class='container d-flex justify-content-center bg-white rounded p-3 mt-5 w-50'>La tua password casuale è:" . "<span class='fw-bolder'>$randomPassword</span>" . "</div";
     ?>
+    
 </div>
 
 
