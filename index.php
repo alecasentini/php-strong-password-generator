@@ -9,10 +9,14 @@
         $includeNumbers = isset($_POST['includeNumbers']);
         $includeSymbols = isset($_POST['includeSymbols']);
         $allowRepetition = isset($_POST['allowRepetition']) && $_POST['allowRepetition'] === 'yes';
-        $randomPassword = generateRandomPassword($passwordLength, $includeLetters, $includeNumbers, $includeSymbols, $allowRepetition);
-        $_SESSION['randomPassword'] = $randomPassword;
-        header('Location: password.php');
-        exit;
+        if (empty($passwordLength) && !$includeLetters && !$includeNumbers && !$includeSymbols) {
+            $error = "Nessun parametro valido inserito";
+        } else {
+            $randomPassword = generateRandomPassword($passwordLength, $includeLetters, $includeNumbers, $includeSymbols, $allowRepetition);
+            $_SESSION['randomPassword'] = $randomPassword;
+            header('Location: password.php');
+            exit;
+        }
     };
     if (isset($_POST['reset'])) {
         $_POST = array();
@@ -88,6 +92,12 @@
 
         </div>
     </form>
+
+    <?php if (isset($error)) { ?>
+    <div class="container text-center rounded p-3 w-50 mt-3" style="background-color: #CFF4FC;">
+    <?php echo $error; ?>
+    </div>
+    <?php } ?>
 
 </div>
 
