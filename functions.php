@@ -8,8 +8,14 @@ function generateRandomPassword($length) {
     return $password;
 }
 
+session_start();
+
 if (isset($_GET['passwordLength'])) {
     $passwordLength = $_GET['passwordLength'];
     $randomPassword = generateRandomPassword($passwordLength);
+    $_SESSION['randomPassword'] = $randomPassword;
+    header('Location: password.php');
+    exit;
 }
+
 ?>

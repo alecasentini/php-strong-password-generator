@@ -71,10 +71,6 @@ include 'functions.php';
         </div>
     </form>
 
-    <?php 
-        echo "<div class='container d-flex justify-content-center bg-white rounded p-3 mt-5 w-50'>La tua password casuale è:" . "<span class='fw-bolder'>$randomPassword</span>" . "</div";
-    ?>
-    
 </div>
 
 
