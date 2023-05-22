@@ -1,7 +1,25 @@
 <?php
-include 'functions.php';
-?>
+    include 'functions.php';
 
+    session_start();
+
+    if (isset($_POST['passwordLength'])) {
+        $passwordLength = $_POST['passwordLength'];
+        $includeLetters = isset($_POST['includeLetters']);
+        $includeNumbers = isset($_POST['includeNumbers']);
+        $includeSymbols = isset($_POST['includeSymbols']);
+        $allowRepetition = isset($_POST['allowRepetition']) && $_POST['allowRepetition'] === 'yes';
+        $randomPassword = generateRandomPassword($passwordLength, $includeLetters, $includeNumbers, $includeSymbols, $allowRepetition);
+        $_SESSION['randomPassword'] = $randomPassword;
+        header('Location: password.php');
+        exit;
+    };
+    if (isset($_POST['reset'])) {
+        $_POST = array();
+        header('Location: index.php');
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,13 +40,13 @@ include 'functions.php';
     <h1 class="text-center text-secondary pt-5">Strong Password Generator</h1>
     <h2 class="text-center text-white">Genera una password sicura</h2>
 
-    <form action="index.php" method="get" class="container d-flex bg-white rounded p-3 w-50">
+    <form action="index.php" method="post" class="container d-flex bg-white rounded p-3 w-50">
         <div class="d-flex flex-column w-50">
             <p>Lunghezza password:</p>
             <p>Consenti ripetizioni di uno o più caratteri</p>
             <div class="d-flex mt-5">
                 <input type="submit" class="btn btn-primary" value="Invia">
-                <input type="submit" class="btn btn-secondary ms-2" value="Annulla">
+                <input type="reset" class="btn btn-secondary ms-2" value="Annulla" name="reset">
             </div>
         </div>
         
@@ -37,32 +55,32 @@ include 'functions.php';
             <input type="number" name="passwordLength" class="form-control w-50">
 
             <div class="form-check mt-3">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                <input class="form-check-input" type="radio"  name="allowRepetition" value="yes">
                 <label class="form-check-label" for="flexRadioDefault1">
                     Sì
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                <input class="form-check-input" type="radio" name="allowRepetition" value="no">
                 <label class="form-check-label" for="flexRadioDefault2">
                     No
                 </label>
             </div>
 
             <div class="form-check mt-3">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" name="includeLetters">
                 <label class="form-check-label" for="flexCheckDefault">
                     Lettere
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" name="includeNumbers" >
                 <label class="form-check-label" for="flexCheckDefault">
                     Numeri
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" name="includeSymbols">
                 <label class="form-check-label" for="flexCheckDefault">
                     Simboli
                 </label>

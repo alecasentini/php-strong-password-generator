@@ -1,7 +1,3 @@
-<?php
-include 'functions.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,16 +14,16 @@ include 'functions.php';
 <body>
     <div class="vh-100 w-100 pt-5" style="background-color: #001632">
 
-        <?php 
-            session_start();
+    <?php
+        session_start();
 
-            if (isset($_SESSION['randomPassword'])) {
-                $randomPassword = $_SESSION['randomPassword'];
-                echo "<div class='container d-flex flex-column justify-content-center align-items-center bg-white rounded p-3 w-50'>La tua password casuale è:" . "<p class='fw-bolder p-3 fs-3'> $randomPassword</p>" . "</div>";
-            } else {
-                echo "<div class='container d-flex justify-content-center bg-white rounded p-3 w-50'>Nessuna password generata </div>";
-            }
-        ?>
+        if (isset($_SESSION['randomPassword'])) {
+            $randomPassword = $_SESSION['randomPassword'];
+            echo "<div class='container d-flex flex-column justify-content-center align-items-center bg-white rounded p-3 w-50'>La tua password casuale è:" . "<p class='fw-bolder p-3 fs-3'> $randomPassword</p>" . "</div>";
+        } else {
+            echo "<div class='container d-flex justify-content-center bg-white rounded p-3 w-50'>Nessuna password generata </div>";
+        }
+    ?>
 
     
     </div>

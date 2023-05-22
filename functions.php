@@ -1,21 +1,27 @@
 <?php
-function generateRandomPassword($length) {
-    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+function generateRandomPassword($length, $includeLetters, $includeNumbers, $includeSymbols, $allowRepetition) {
+    $characters = '';
+    if ($includeLetters) {
+        $characters .= 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    }
+    if ($includeNumbers) {
+        $characters .= '0123456789';
+    }
+    if ($includeSymbols) {
+        $characters .= '!@#$%^&*()';
+    }
+
     $password = '';
     for ($i = 0; $i < $length; $i++) {
-        $password .= $characters[rand(0, strlen($characters) - 1)];
+        $randomCharacter = $characters[rand(0, strlen($characters) - 1)];
+        if (!$allowRepetition && strpos($password, $randomCharacter) !== false) {
+            $i--;
+            continue;
+        }
+        $password .= $randomCharacter;
     }
     return $password;
-}
+};
 
-session_start();
-
-if (isset($_GET['passwordLength'])) {
-    $passwordLength = $_GET['passwordLength'];
-    $randomPassword = generateRandomPassword($passwordLength);
-    $_SESSION['randomPassword'] = $randomPassword;
-    header('Location: password.php');
-    exit;
-}
 
 ?>
